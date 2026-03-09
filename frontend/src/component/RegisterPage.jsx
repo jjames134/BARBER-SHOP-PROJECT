@@ -3,13 +3,13 @@ import { useState } from "react"
 
 
 
-export default function RegisterPage(){
+export default function RegisterPage() {
     const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [passcheck, setPasscheck] = useState("")
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
-    const [birthday, setBirthday] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [faillenmessage, setFaillenMessage] = useState("")
@@ -17,7 +17,7 @@ export default function RegisterPage(){
     async function submitRegister(e) {
         e.preventDefault()
 
-        if (!username || !password || !firstname || !birthday || !email || !phone) {
+        if (!username || !password || !firstname || !email || !phone) {
             setFaillenMessage("กรุณากรอกข้อมูลให้ครบ")
             return
         }
@@ -34,7 +34,6 @@ export default function RegisterPage(){
                     password,
                     firstname,
                     lastname,
-                    birthday,
                     email,
                     phone
                 })
@@ -55,40 +54,56 @@ export default function RegisterPage(){
     }
 
     return (
-        <form className="container-page1" onSubmit={submitRegister}>
+        <form className="register-page" onSubmit={submitRegister}>
 
-            <h2>Register</h2>
+            <div className="register-card">
 
-            <span>{faillenmessage}</span>
+                <h2>สร้างบัญชีผู้ใช้</h2>
 
-            <div className="container-login">
+                <span className="error">{faillenmessage}</span>
 
-                <label>Username</label>
-                <input onChange={(e) => setUsername(e.target.value)} />
+                <div className="row">
+                    <div className="input-group">
+                        <label>ชื่อ</label>
+                        <input onChange={(e) => setFirstname(e.target.value)} placeholder="โปรดป้อนชื่อ" />
+                    </div>
 
-                <label>Password</label>
-                <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <div className="input-group">
+                        <label>นามสกุล</label>
+                        <input onChange={(e) => setLastname(e.target.value)} placeholder="โปรดป้อนนามสกุล" />
+                    </div>
+                </div>
 
-                <label>Firstname</label>
-                <input onChange={(e) => setFirstname(e.target.value)} />
+                <div className="input-group">
+                    <label>ชื่อบัญชีผู้ใช้</label>
+                    <input onChange={(e) => setUsername(e.target.value)} />
+                </div>
 
-                <label>Lastname</label>
-                <input onChange={(e) => setLastname(e.target.value)} />
+                <div className="input-group">
+                    <label>หมายเลขโทรศัพท์</label>
+                    <input onChange={(e) => setPhone(e.target.value)} />
+                </div>
 
-                <label>Birthday</label>
-                <input type="date" onChange={(e) => setBirthday(e.target.value)} />
+                <div className="input-group">
+                    <label>อีเมล</label>
+                    <input type="email" onChange={(e) => setEmail(e.target.value)} />
+                </div>
 
-                <label>Email</label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)} />
+                <div className="input-group">
+                    <label>รหัสผ่าน</label>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                </div>
 
-                <label>Phone</label>
-                <input onChange={(e) => setPhone(e.target.value)} />
+                <div className="input-group">
+                    <label>ยืนยันรหัสผ่าน</label>
+                    <input type="password" onChange={(e) => setPasscheck(e.target.value)} />
+                </div>
+
+                <button className="register-btn">
+                    สร้างบัญชีผู้ใช้
+                </button>
 
             </div>
-
-            <button type="submit">
-                Register
-            </button>
 
         </form>
     )

@@ -67,3 +67,62 @@
   width: auto;
   
 }
+
+.register-page{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#e9e7e3;
+}
+
+.register-card{
+  width:460px;
+  background:#e2c3a8;
+  padding:30px;
+  border-radius:12px;
+  border:2px solid #6b4a3c;
+  box-shadow:6px 6px 0 rgba(0,0,0,0.2);
+}
+
+.register-card h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.input-group{
+  display:flex;
+  flex-direction:column;
+  margin-bottom:15px;
+}
+
+.input-group input{
+  padding:10px;
+  border-radius:20px;
+  border:none;
+  box-shadow:2px 3px 0 rgba(0,0,0,0.2);
+}
+
+.row{
+  display:flex;
+  gap:10px;
+}
+
+.row .input-group{
+  flex:1;
+}
+
+.register-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:25px;
+  background:#ff9c2f;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.register-btn:hover{
+  background:#ff8a00;
+}
