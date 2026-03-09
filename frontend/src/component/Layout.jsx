@@ -5,7 +5,7 @@ import { DataContext } from "../DataContext"
 
 export default function Layout() {
   const navigate = useNavigate()
-  const { id, role, islogin, setIsLogin } = useContext(DataContext)
+  const { role, islogin, setIsLogin } = useContext(DataContext)
   const handleLogOut = () =>{
     localStorage.clear()
     localStorage.setItem("islogin",false)

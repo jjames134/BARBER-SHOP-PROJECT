@@ -10,7 +10,7 @@ class UserCreateRegister(BaseModel):
     birthday: date
     email: str
     phone: str
-    profile_img: str|None = None
+
 
 class UserResponseRegister(BaseModel):
     id:int
@@ -21,7 +21,6 @@ class UserResponseRegister(BaseModel):
     rolestatus: UserRole
     email: str
     phone: str
-    profile_img: str|None = None
     create_at: datetime
     update_at: datetime
     is_active: bool = True

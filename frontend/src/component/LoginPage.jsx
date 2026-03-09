@@ -1,55 +1,53 @@
 import { Form, useNavigate } from "react-router-dom"
-import { useState, useRef } from "react"
-import { useContext } from "react"
+import { useState, useRef,useContext  } from "react"
 import { DataContext } from "../DataContext"
 
 
 
 export default function Login() {
     const navigate = useNavigate()
-    const [username,setUsername] = useState('')
-    const [password,setPassWord] = useState('')
-    const [faillenmessage,setFaillenMessage] = useState("")
-    const { setId,setRole, setIsLogin } = useContext(DataContext)
-    async function submitLogin(e){
+    const [username, setUsername] = useState('')
+    const [password, setPassWord] = useState('')
+    const [faillenmessage, setFaillenMessage] = useState("")
+    const { setId, setRole, setIsLogin } = useContext(DataContext)
+    async function submitLogin(e) {
         e.preventDefault()
-        if ((!username || !password)){
+        if ((!username || !password)) {
             console.log("กรุณากรอกusernameและpasswordให้ครบถ้วน")
             setFaillenMessage("กรุณากรอกusernameและpasswordให้ครบถ้วน")
         }
-        else{
-            try{
-            const res = await fetch("http://localhost:8000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password
-        })
-    })
-            const data = await res.json()
-            if (res.ok){
-                setFaillenMessage("")
-                localStorage.setItem("id",data.id)
-                localStorage.setItem("role",data.role)
-                localStorage.setItem("islogin", "true")
-                setId(data.id)
-                setRole(data.role)
-                setIsLogin(true)
-                navigate("/")
+        else {
+            try {
+                const res = await fetch("http://localhost:8000/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                })
+                const data = await res.json()
+                if (res.ok) {
+                    setFaillenMessage("")
+                    localStorage.setItem("token", data.access_token)
+                    localStorage.setItem("role", data.role)
+                    localStorage.setItem("islogin", "true")
+                    setRole(data.role)
+                    setIsLogin(true)
+                    navigate("/")
+                }
+                else {
+                    setFaillenMessage(data.detail)
+                }
             }
-            else{
-                setFaillenMessage(data.detail)
-            }
-            }
-            catch(err){
+            catch (err) {
                 setFaillenMessage("Server Faillen")
             }
 
         }
-        
+
     }
     return (
         <>
@@ -60,9 +58,9 @@ export default function Login() {
                 <span>{faillenmessage}</span>
                 <div className="container-login">
                     <label >Username</label>
-                    <input onChange={(e)=> setUsername(e.target.value)}/>
+                    <input onChange={(e) => setUsername(e.target.value)} />
                     <label>Password</label>
-                    <input type={"password"} onChange={(e)=> setPassWord(e.target.value)}/>
+                    <input type={"password"} onChange={(e) => setPassWord(e.target.value)} />
                 </div>
                 <div>
                     <button className="tap2" type="button" onClick={() => navigate("/register")}>
@@ -72,10 +70,10 @@ export default function Login() {
                         Forgot Password?
                     </button>
                 </div>
-                 <button type={"submit"} >
+                <button type={"submit"} >
                     LOGIN
                 </button>
-                
+
             </form>
         </>
     )
