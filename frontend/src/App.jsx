@@ -30,11 +30,11 @@ function App() {
        <Route path="/chair" element={<ChairPage/>}/>
        <Route path="/booked-table" element={<BookedTable/>}/>
        <Route path="/reset-password" element={<ResetPassword/>}/>
-       <Router path="/queues-table" element={<QueueTable/>}/>
+       <Route path="/queues-table" element={<QueueTable/>}/>
        <Route element={<RequireRole allowRoles={["CUSTOMER"]} />}>
         </Route>
        <Route element={<RequireRole allowRoles={["EMPLOYEE"]} />}>
-          <Router path="/working-table" element={<WorkTable/>}/>
+          <Route path="/working-table" element={<WorkTable/>}/>
         </Route>
         <Route element={<RequireRole allowRoles={["OWNER"]} />}>
           <Route path="/dashboard" element={<DashBoard/>} />
