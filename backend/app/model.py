@@ -49,13 +49,6 @@ class User(Base):
     update_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     queues:Mapped[list["QueueSlots"]] = relationship(back_populates="customer")
 
-barber_queue_slots = Table(
-    "barber_queue_slots",
-    Base.metadata,
-    Column("barber_id",ForeignKey("barbers.id")),
-    Column("slot_id",ForeignKey("queue_slots.id"))
-    
-)
 
 
 
@@ -66,7 +59,7 @@ class Barber(Base):
     id:Mapped[int] = mapped_column(primary_key=True)
     user_id:Mapped[int] = mapped_column(ForeignKey("users.id"))
     user_data:Mapped["User"] = relationship(single_parent=True)
-    time_working:Mapped[list["QueueSlots"]] = relationship("QueueSlots", secondary=barber_queue_slots, back_populates="barber_working")
+    time_working:Mapped[list["QueueSlots"]] = relationship("QueueSlots",  back_populates="barber_working")
     leave_letter:Mapped[list["LeaveLetter"]] = relationship("LeaveLetter", back_populates="barber")
 
 
@@ -77,7 +70,7 @@ class Chair(Base):
     id:Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
     date_working:Mapped[date] = mapped_column(ForeignKey("opening_dates.date_open"))
-    queues:Mapped[list["QueueSlots"]] = relationship(back_populates="chair")
+    queues:Mapped[list["QueueSlots"]] = relationship("QueueSlots",back_populates="chair")
     status:Mapped[ChairStatus] =  mapped_column(Enum(ChairStatus),default=ChairStatus.AVAILABLE)
     opening_date: Mapped["OpeningDate"] = relationship(back_populates="chairs")
 
@@ -88,12 +81,13 @@ class QueueSlots(Base):
     start_time:Mapped[time] = mapped_column(Time,nullable=False)
     end_time:Mapped[time] = mapped_column(Time,nullable=False)
     chair_id:Mapped[int] = mapped_column(ForeignKey("chairs.id"))
-    date_working:Mapped[date] = mapped_column(ForeignKey("opening_dates.date_open"))
+    date_working:Mapped[date] = mapped_column(ForeignKey("opening_dates.date_open"),index=True)
     customer_id:Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=True)
     #AVAILABLE, BOOKED, SERVING, CANCELLED, COMPLETED
     status:Mapped[BookedStatus] = mapped_column(Enum(BookedStatus),default=BookedStatus.AVAILABLE)
     status_user:Mapped[TypeUser] = mapped_column(Enum(TypeUser),default=TypeUser.NONE)
-    barber_working:Mapped[list["Barber"]] = relationship("Barber", secondary=barber_queue_slots, back_populates="time_working")
+    barber_working:Mapped["Barber"] = relationship("Barber", back_populates="time_working")
+    barber_id: Mapped[int] = mapped_column(ForeignKey("barbers.id"))
     chair:Mapped["Chair"] = relationship(back_populates="queues")
     customer:Mapped["User"] = relationship(back_populates="queues")
     __table_args__ = (UniqueConstraint("chair_id", "date_working", "start_time"),CheckConstraint("end_time > start_time")
