@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useRef,useContext  } from "react"
 import { DataContext } from "../DataContext"
-import "./style/NotificationPage.css"
+import "./style/QueuesPage.css"
 
-export default function Notification(){
+export default function queuesPage(){
 
 }

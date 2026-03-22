@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import { useState,useContext,useEffect } from "react"
 import { DataContext } from "../DataContext"
-
+import "./style/Layout.css"
 
 export default function Layout() {
   const navigate = useNavigate()
