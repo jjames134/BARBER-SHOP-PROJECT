@@ -69,7 +69,7 @@ export default function EditProfilePage() {
     setLoading(true);
     try {
       // --- STEP 1: Verify Password ---
-      const verifyRes = await fetch(`${baseURL}/auth/verify_password`, {
+      const verifyRes = await fetch(`${baseURL}/auth/verify_owner_password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

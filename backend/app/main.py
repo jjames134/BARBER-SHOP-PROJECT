@@ -13,17 +13,22 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = FastAPI(
     title="Barber Shop API",
     version="2.0.0",
     description="Backend for Barber Shop booking system",
 )
-origin = "http://localhost:5173"
+# Get CORS origins from environment variable (for deployment)
+# Default to localhost for development
+cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origin,
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
