@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
 COPY backend/app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY backend/app ./app
+# Copy backend app and static assets from backend tree
+COPY backend/app .
 COPY backend/static ./static
 
 EXPOSE 8000

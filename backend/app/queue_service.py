@@ -164,8 +164,9 @@ def get_my_bookings(user: User = Depends(require_roles([UserRole.CUSTOMER])), db
         "id": b.id,
         "chair_name": b.chair.name,
         "barber_name": b.chair.barber.user_data.firstname if b.chair.barber else "ช่างประจำร้าน",
-        "date": b.date_working,
-        "start_time": b.start_time.strftime("%H:%M"),
+        "date_working": b.date_working.isoformat(),
+        "start_time": b.start_time.strftime("%H:%M:%S"),
+        "end_time": b.end_time.strftime("%H:%M:%S"),
         "status": b.status.value
     } for b in bookings]
 
@@ -382,4 +383,125 @@ def book_queue(
         "message": "จองสำเร็จ",
         "queue_id": queue.id,
         "customer_name": current_customer.username
+    }
+
+
+# ==========================================
+# 5. SHOP MANAGEMENT (เปิด/ปิดร้าน + บันทึกเวลา)
+# ==========================================
+
+@router.post("/set_opening")
+def set_opening(
+    open_time: str,
+    close_time: str,
+    is_open: str,  # รับเป็น str เพื่อแปลงจาก URLSearchParams ที่ส่ง "true"/"false"
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles([UserRole.OWNER]))
+):
+    """
+    บันทึก/อัพเดต เวลาเปิด-ปิดของร้านสำหรับวันนี้
+    """
+    today = date.today()
+    
+    # แปลง is_open string เป็น boolean
+    is_open_bool = is_open.lower() in ["true", "1", "yes"]
+    
+    # แปลง string เป็น time object (รับทั้ง HH:MM และ HH:MM:SS)
+    try:
+        if len(open_time.split(':')) == 2:
+            open_time_obj = datetime.strptime(open_time, "%H:%M").time()
+        else:
+            open_time_obj = datetime.strptime(open_time, "%H:%M:%S").time()
+        
+        if len(close_time.split(':')) == 2:
+            close_time_obj = datetime.strptime(close_time, "%H:%M").time()
+        else:
+            close_time_obj = datetime.strptime(close_time, "%H:%M:%S").time()
+    except ValueError:
+        raise HTTPException(status_code=400, detail="รูปแบบเวลาไม่ถูกต้อง (ใช้ HH:MM หรือ HH:MM:SS)")
+    
+    # ตรวจสอบให้ close_time > open_time
+    if close_time_obj <= open_time_obj:
+        raise HTTPException(status_code=400, detail="เวลาปิดต้องหลังเวลาเปิด")
+    
+    # ค้นหาหรือสร้าง OpeningDate record สำหรับวันนี้
+    opening = db.query(OpeningDate).filter(OpeningDate.date_open == today).first()
+    
+    if opening:
+        # อัพเดต
+        opening.open_time = open_time_obj
+        opening.close_time = close_time_obj
+        opening.is_open = is_open_bool
+    else:
+        # สร้างใหม่
+        opening = OpeningDate(
+            date_open=today,
+            open_time=open_time_obj,
+            close_time=close_time_obj,
+            is_open=is_open_bool
+        )
+        db.add(opening)
+    
+    db.commit()
+    db.refresh(opening)
+    
+    return {
+        "id": opening.id,
+        "date_open": opening.date_open.isoformat(),
+        "open_time": opening.open_time.strftime("%H:%M:%S"),
+        "close_time": opening.close_time.strftime("%H:%M:%S"),
+        "is_open": opening.is_open,
+        "message": "บันทึกเวลาสำเร็จ"
+    }
+
+
+@router.post("/open_shop")
+def open_shop(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles([UserRole.OWNER]))
+):
+    """
+    เปิดร้านสำหรับวันนี้ (อัพเดต is_open เป็น True)
+    """
+    today = date.today()
+    
+    opening = db.query(OpeningDate).filter(OpeningDate.date_open == today).first()
+    
+    if not opening:
+        raise HTTPException(status_code=404, detail="ยังไม่มีการตั้งค่าเวลาเปิด-ปิด")
+    
+    opening.is_open = True
+    db.commit()
+    db.refresh(opening)
+    
+    return {
+        "message": "เปิดร้านสำเร็จ",
+        "is_open": opening.is_open,
+        "open_time": opening.open_time.strftime("%H:%M:%S"),
+        "close_time": opening.close_time.strftime("%H:%M:%S")
+    }
+
+
+@router.post("/close_shop")
+def close_shop(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles([UserRole.OWNER]))
+):
+    """
+    ปิดร้านสำหรับวันนี้ (อัพเดต is_open เป็น False)
+    """
+    today = date.today()
+    
+    opening = db.query(OpeningDate).filter(OpeningDate.date_open == today).first()
+    
+    if not opening:
+        raise HTTPException(status_code=404, detail="ยังไม่มีการตั้งค่าเวลาเปิด-ปิด")
+    
+    opening.is_open = False
+    db.commit()
+    db.refresh(opening)
+    
+    return {
+        "message": "ปิดร้านสำเร็จ",
+        "is_open": opening.is_open
     }
