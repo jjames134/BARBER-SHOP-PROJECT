@@ -1,29 +1,26 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
-import { DataContext } from "../DataContext";
+import { useNavigate } from "react-router-dom"
+import { useState, useRef, useContext } from "react"
+import { DataContext } from "../DataContext"
 import { jwtDecode } from "jwt-decode";
-import "./style/LoginPage.css";
+import "./style/LoginPage.css"
 
 export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassWord] = useState('');
     const [faillenmessage, setFaillenMessage] = useState("");
-    
-    // ดึงฟังก์ชันมาจาก DataContext
-    const { setRole, setIsLogin, fetchUserData, baseURL } = useContext(DataContext);
+    const { setRole, setIsLogin } = useContext(DataContext);
 
+    // ✅ ต้องก๊อปฟังก์ชันนี้มาวางไว้ข้างใน Login() ด้วยครับ
     async function submitLogin(e) {
         e.preventDefault();
-        setFaillenMessage(""); // ล้างข้อความ Error เก่าก่อน
-
         if (!username || !password) {
             setFaillenMessage("กรุณากรอก username และ password ให้ครบถ้วน");
             return;
         }
 
         try {
-            const res = await fetch(`${baseURL}/auth/login`, {
+            const res = await fetch("http://localhost:8000/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
@@ -32,37 +29,28 @@ export default function Login() {
             const data = await res.json();
 
             if (res.ok) {
-                // 1. เก็บ Token ทั้งสองตัวลง LocalStorage
+                const decoded = jwtDecode(data.access_token); // 2. Decode token เพื่อเอา data
+                const userRole = decoded.role; // ดึง role ออกมา (เช่น "CUSTOMER", "OWNER")
+
                 localStorage.setItem("token", data.access_token);
-                localStorage.setItem("refresh_token", data.refresh_token);
+                localStorage.setItem("refresh_token", data.refresh_token); // เก็บไว้ใช้ตอน token หมดอายุ
 
-                // 2. Decode เพื่อหา Role ทันที (สำหรับ Redirect หรือเช็คสิทธิ์เบื้องต้น)
-                const decoded = jwtDecode(data.access_token);
-                const userRole = decoded.role;
-
-                // 3. อัปเดตสถานะใน Global Context
-                setRole(userRole);
+                setRole(userRole); // 3. อัปเดต Context ด้วยค่าจริง
                 setIsLogin(true);
-
-                // 4. 🔥 สั่งให้โหลดข้อมูล Profile (ชื่อ, รูปภาพ) ทันที
-                await fetchUserData();
-
-                // 5. พากลับไปหน้าแรก
                 navigate("/");
             } else {
-                // แสดง Error ที่ส่งมาจาก Backend (เช่น Invalid credentials)
-                setFaillenMessage(data.detail || "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+                setFaillenMessage(data.detail || "Login Failed");
             }
         } catch (err) {
-            console.error("Login Error:", err);
-            setFaillenMessage("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+            setFaillenMessage("Server Connection Failed");
         }
     }
 
     return (
         <div className="login-page-wrapper">
             <div className="back-button-container">
-                <button className="back-icon" onClick={() => navigate(-1)} title="ย้อนกลับ">
+                <button className="back-icon" onClick={() => navigate(-1)}>
+                    {/* ถ้า font-awesome ไม่ขึ้น ให้ใช้ตัวหนังสือ < แทนไปก่อนได้ครับ */}
                     <i className="fa-solid fa-arrow-left"></i>
                 </button>
             </div>
@@ -71,12 +59,8 @@ export default function Login() {
                 <h2 className="login-title">ลงชื่อเข้าใช้</h2>
 
                 <form className="login-form" onSubmit={submitLogin}>
-                    {/* แสดง Banner สีแดงเมื่อ Login พลาด */}
-                    {faillenmessage && (
-                        <div className="error-banner">
-                            <i className="fa-solid fa-circle-exclamation"></i> {faillenmessage}
-                        </div>
-                    )}
+
+                    {faillenmessage && <div className="error-banner">{faillenmessage}</div>}
 
                     <div className="input-group">
                         <label>ชื่อบัญชีผู้ใช้</label>
@@ -85,7 +69,6 @@ export default function Login() {
                             placeholder="โปรดป้อนชื่อผู้ใช้"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            required
                         />
                     </div>
 
@@ -96,7 +79,6 @@ export default function Login() {
                             placeholder="โปรดป้อนรหัสผ่าน"
                             value={password}
                             onChange={(e) => setPassWord(e.target.value)}
-                            required
                         />
                     </div>
 

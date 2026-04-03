@@ -1,26 +1,73 @@
 version: '3.9'
 
 services:
-    db:
-      image: mysql:8
-      container_name: barber_mysql
-      restart: always
-      environment:
-       MYSQL_ROOT_PASSWORD: root1234
-       MYSQL_DATABASE: barber_db
-      ports:
+  db:
+    image: mysql:8
+    container_name: barber_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: barber_db
+    ports:
       - "3307:3306"
-      volumes:
+    volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - barber_network
 
-    frontend:
-      build:
-        context: ./frontend
-        dockerfile: Dockerfile
-      container_name: barber_frontend
-      ports:
+  backend:
+    build:
+      context: ./backend/app
+      dockerfile: Dockerfile
+    container_name: barber_backend
+    restart: always
+    environment:
+      DATABASE_URL: mysql+pymysql://root:root1234@db:3306/barber_db
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend/app:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - barber_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: barber_frontend
+    restart: always
+    ports:
       - "5173:80"
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://backend:8000
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/index.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - barber_network
 
 volumes:
-    mysql_data:
+  mysql_data:
+
+networks:
+  barber_network:
+    driver: bridge
 
