@@ -965,10 +965,10 @@ railway up
 
 ## 📝 หมายเหตุ
 
-- ระบบใช้ SQLite เพื่อ development ใช้ PostgreSQL สำหรับ production
+- ระบบใช้ MySQL เพื่อ development และ production
 - OTP มีความถูกต้องเป็นเวลา 15 นาที
 - Token JWT หมดอายุใน 24 ชั่วโมง
-- ระบบมี Rate Limiting สำหรับ OTP attempts (max 3 ครั้ง)
+- ระบบมี Rate Limiting สำหรับ OTP attempts (max 5 ครั้ง)
 
 ---
 
