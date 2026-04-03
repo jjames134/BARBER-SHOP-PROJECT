@@ -1,3 +1,227 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* การจัดวางหน้าจอหลักให้มีช่องว่างบน-ล่าง */
+.register-main-layout {
+    min-height: calc(100vh - 160px); /* ลบความสูงโดยประมาณของ Navbar และ Footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px; /* เพิ่มช่องว่างระหว่าง Navbar (บน) และ Footer (ล่าง) */
+    background-color: #ffffff; /* ปรับเป็นสีขาวตามพื้นหลังหน้าเว็บหลัก */
+}
+
+/* ตัว Card สมัครสมาชิก */
+.register-card-container {
+    background-color: #fdf6f0; /* สีครีมตามดีไซน์ Barber Shop */
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1); /* Shadow แบบเหลี่ยมตามภาพตัวอย่าง */
+    border: 1px solid #d1b8a5;
+}
+
+/* หัวข้อ */
+.register-main-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+    color: #3e2723;
+    margin-bottom: 30px;
+}
+
+/* การจัดวางปุ่มให้อยู่กึ่งกลาง */
+.center-button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.barber-btn-orange {
+    background-color: #ffab40;
+    color: white;
+    border: none;
+    padding: 12px 60px; /* ขยายปุ่มให้กว้างขึ้น */
+    border-radius: 12px; /* โค้งมนกำลังดี */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 0px #e69138; /* มีมิติปุ่มกด */
+    transition: 0.2s;
+}
+
+.barber-btn-orange:hover {
+    background-color: #fb8c00;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #e69138;
+}
+
+/* แถบแจ้งเตือน Error รหัสไม่ตรงกัน (โดดเด่นขึ้น) */
+.error-alert-box {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #ef9a9a;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* OTP Overlay (มืดสนิท ไม่เบลอ) */
+.otp-overlay-dark {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* มืดสนิท 90% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.otp-modal-box {
+    background-color: #fdf6f0;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.otp-dashed-input {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    border: 2px dashed #ffab40 !important;
+    background: #fff;
+    border-radius: 10px;
+}
+
+/* Floating Toast ด้านบน */
+.top-toast-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    animation: slideDown 0.4s ease-out;
+}
+
+.toast-card {
+    background: #2d2d2d;
+    color: #ff5252;
+    padding: 14px 28px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 2px solid #ff5252;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    font-weight: bold;
+}
+
+@keyframes slideDown {
+    from { transform: translate(-50%, -100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* ปรับระยะห่าง input ทั่วไป */
+.input-field-group {
+    margin-bottom: 15px;
+}
+
+.input-field-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #5d4037;
+}
+
+.input-field-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+/* จัดการกลุ่มปุ่มและลิงก์ด้านล่างให้มีระยะห่าง */
+.form-footer-action {
+    margin-top: 40px; /* เพิ่มระยะห่างระหว่างช่องกรอกสุดท้ายกับกลุ่มปุ่ม */
+    text-align: center;
+}
+
+.center-button-wrapper {
+    margin-bottom: 20px; /* เว้นระยะระหว่างปุ่มส้มกับข้อความด้านล่าง */
+}
+
+.login-nav-text {
+    font-size: 14px;
+    color: #3e2723;
+    font-weight: 500;
+}
+
+/* ปรับแต่งคำว่า เข้าสู่ระบบ ให้ดูโดดเด่นและกดได้ */
+.login-link-span {
+    color: #2b5cb7; /* เปลี่ยนเป็นสีน้ำเงินตามภาพตัวอย่างที่คุณส่งมา */
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 8px; /* เว้นระยะห่างจากคำว่า มีบัญชีแล้ว? */
+    text-decoration: none;
+}
+
+.login-link-span:hover {
+    text-decoration: underline; /* แสดงขีดฆ่าเมื่อเอาเมาส์ไปชี้ */
+    color: #1a3a8a;
+}
+
+/* ปรับปรุงโครงสร้าง Layout หลักให้มีพื้นที่หายใจระหว่าง Navbar/Footer */
+.register-main-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px; /* เพิ่มช่องว่างบน-ล่างให้มากขึ้น */
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* 🔥 input error */
+.input-error {
+    border: 2px solid #ff5252 !important;
+    background-color: #fff5f5;
+}
+
+/* 🔥 helper text ใต้ input */
+.input-helper {
+    color: #ff5252;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* 🔥 error box */
+.error-alert-box {
+    background: #ffe5e5;
+    color: #b71c1c;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* 🔥 shake */
+.shake {
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}

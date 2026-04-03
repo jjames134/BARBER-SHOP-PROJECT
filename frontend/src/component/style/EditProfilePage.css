@@ -1,3 +1,246 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* EditProfilePageModern.css */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+
+:root {
+  --primary-color: #E67E22; /* ส้มโทนอบอุ่น */
+  --primary-hover: #D35400;
+  --bg-color: #FDF5E6;      /* สีครีมอ่อนๆ นวลตา */
+  --card-bg: #ffffff;
+  --text-dark: #2C3E50;
+  --text-muted: #7F8C8D;
+  --input-border: #E0E0E0;
+  --shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.ep-container {
+  font-family: 'Kanit', sans-serif;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  padding: 20px;
+  color: var(--text-dark);
+}
+
+/* Header Section */
+.ep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.ep-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ep-back-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Main Card */
+.ep-card {
+  background: var(--card-bg);
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+/* Avatar Section - จุดเปลี่ยนสำคัญตามที่คุณต้องการ */
+.ep-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.ep-avatar-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.ep-avatar-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.ep-avatar-img, .ep-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* เปลี่ยนเป็นวงกลม */
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  font-size: 3rem;
+}
+
+.ep-upload-circle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--primary-color);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 3px solid #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.ep-avatar-tip {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* Form Styles */
+.ep-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ep-input-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ep-input-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.ep-input-group input {
+  padding: 12px 16px;
+  border: 1.5px solid var(--input-border);
+  border-radius: 12px; /* ลดความโค้งจากเดิมที่ดูเป็นวงรีเกินไป */
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.ep-input-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
+}
+
+/* Action Buttons */
+.ep-action-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.ep-btn-primary, .ep-btn-secondary {
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.ep-btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.ep-btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.ep-btn-secondary {
+  background: #f8f9fa;
+  color: var(--text-dark);
+  border: 1.5px solid var(--input-border);
+}
+
+.ep-btn-secondary:hover {
+  background: #eee;
+}
+
+/* Modal Styling */
+.ep-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.ep-modal-content {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ep-modal-header {
+  padding: 20px;
+  background: #fdf5e6;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ep-modal-body { padding: 25px; }
+
+.ep-modal-footer {
+  padding: 15px 25px 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.ep-btn-confirm {
+  flex: 1;
+  padding: 10px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ep-btn-cancel {
+  flex: 1;
+  padding: 10px;
+  background: #eee;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

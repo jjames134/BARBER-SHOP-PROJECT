@@ -1,3 +1,107 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* คลุมทั้งหน้า */
+.login-page-wrapper {
+  background-color: #f0f0f0; /* สีพื้นหลังนอกกล่อง */
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* กล่องสีครีม (Card) */
+.login-card {
+  background-color: #f5e1ce; /* สีครีมตามรูป */
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 15px; /* ความโค้งมน */
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1); /* เงาด้านล่างขวาแบบในรูป */
+  text-align: center;
+  border: 1px solid #d1b8a5;
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* จัดระเบียบ Input */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 25px; /* Input มนๆ ตามรูป */
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Register / Forgot Password */
+.helper-links {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.helper-links span {
+  color: #888;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ปุ่ม Login สีส้ม */
+.btn-submit-login {
+  background-color: #ffab40; /* สีส้มตามรูป */
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-submit-login:hover {
+  background-color: #e6952d;
+}
+
+/* Error Message */
+.error-banner {
+  background-color: #ffeded;
+  color: #d32f2f;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* ปุ่มย้อนกลับ */
+.back-button-container {
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 10px;
+}
+
+.back-icon {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}

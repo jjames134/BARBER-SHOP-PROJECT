@@ -1,3 +1,208 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.manage-user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.manage-user-card-central {
+  width: 100%;
+  max-width: 900px;
+  background: #FFF5E9; /* สีพื้นหลังอ่อนๆ ตามธีมร้าน */
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 30px;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Tab Styling */
+.custom-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.custom-tabs button {
+  padding: 10px 25px;
+  border: none;
+  background: #eee;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.custom-tabs button.active {
+  background: #D2B48C; /* สีน้ำตาลอ่อน */
+  color: white;
+}
+
+/* Table Styling ตามรูปที่คุณส่งมา */
+.manage-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.manage-table th {
+  background: #EEDCC6; /* สีหัวตารางตามรูป image_f136d3 */
+  padding: 15px;
+  color: #5D4037;
+  font-weight: bold;
+  text-align: center;
+}
+
+.manage-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.no-data {
+  padding: 40px !important;
+  color: #999;
+  font-style: italic;
+}
+
+/* Buttons */
+.btn-add { background: #4CAF50; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; }
+.btn-revoke { background: #f44336; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; }
+.btn-view { background: #FF9800; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; }
+
+.table-select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* แถวของ Owner */
+.row-owner {
+  background-color: #fff9e6 !important; /* สีเหลืองทองอ่อนๆ */
+  border-left: 4px solid #d4af37; /* แถบสีทองด้านซ้าย */
+}
+
+.owner-badge {
+  background-color: #d4af37;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.name-cell {
+  display: flex;
+  align-items: center;
+}
+
+.btn-delete {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.btn-delete:hover {
+  background-color: #e60000;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 5px;
+}
+/* Owner Highlight */
+.row-owner {
+  background-color: #fffbef !important;
+  border-left: 5px solid #d4af37;
+}
+
+.owner-badge {
+  background: #d4af37;
+  color: white;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+}
+
+/* Leave Status */
+.row-on-leave {
+  background-color: #f9f9f9 !important;
+  opacity: 0.8;
+}
+
+.leave-badge {
+  background-color: #ff9800;
+  color: white;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+}
+
+.table-select:disabled {
+  background-color: #eee;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Buttons */
+.btn-group { display: flex; gap: 8px; }
+.btn-revoke-staff { background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+.btn-unassign { background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+.btn-view { background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+
+/* ปุ่มตั้งเป็นพนักงาน (สีเขียว) */
+.btn-grant {
+  background-color: #28a745; /* สีเขียว Success */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.btn-grant:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(40, 167, 69, 0.3);
+}
+
+.btn-grant:active {
+  transform: translateY(0);
+}
+
+/* ปรับปรุงป้ายพนักงานลา (สีส้ม) ให้ดูเด่นขึ้น */
+.leave-badge {
+  background-color: #ff9800;
+  color: white;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}

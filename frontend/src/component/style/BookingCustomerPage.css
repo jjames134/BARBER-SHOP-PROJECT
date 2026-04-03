@@ -1,0 +1,196 @@
+.booking-customer-page {
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: inherit;
+    min-height: calc(100vh - 200px); /* Fill space between layout header and footer */
+}
+
+.top-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.back-arrow-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.date-badge-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.date-badge {
+    background-color: #ffaa55; /* Orange badge */
+    color: black;
+    border-radius: 6px;
+    padding: 6px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Outer peach boundary wrapper */
+.booking-table-outline {
+    background-color: #f7d2be; /* Peach color from image */
+    border-radius: 12px;
+    padding: 15px; 
+    box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.15); /* Grey drop shadow */
+    margin: 0 auto;
+}
+
+.booking-table-wrapper {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #555;
+}
+
+.booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.booking-table th, .booking-table td {
+    border: 1px solid #555; /* Dark line separators */
+    padding: 18px 10px;
+    font-size: 1.05rem;
+}
+
+.booking-table th {
+    background-color: white;
+    font-weight: normal; /* "เวลา" and "สถานะ" don't seem overly bold in image */
+}
+
+/* Time column width constraint if needed */
+.time-col {
+    width: 35%;
+}
+
+.status-col {
+    width: 65%;
+}
+
+.row-booked {
+    background-color: #fca7a7; /* Pinkish-red for booked */
+}
+
+.row-available {
+    background-color: #a8f5ac; /* Light green for available */
+}
+
+.status-text-booked {
+    color: black;
+    font-weight: normal;
+}
+
+.book-queue-btn {
+    background-color: #178b17; /* Dark green button */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 30px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: normal;
+}
+
+.book-queue-btn:hover {
+    background-color: #116b11;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.custom-modal {
+    background-color: #fffcf0; /* Light beige/yellow background */
+    border: 5px solid #574238; /* Brown thick border */
+    border-radius: 12px;
+    padding: 30px;
+    width: 360px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.custom-modal.center-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.35rem;
+    font-weight: normal;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+.modal-details {
+    margin-bottom: 30px;
+    font-size: 1.25rem;
+    line-height: 1.8;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 10px;
+}
+
+.btn-cancel {
+    background-color: #f14444; /* Light red */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-size: 1.15rem;
+    cursor: pointer;
+}
+
+.btn-confirm {
+    background-color: #179617; /* Green */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-size: 1.15rem;
+    cursor: pointer;
+}
+
+.success-icon {
+    margin: 15px 0 25px 0;
+}
+
+.confirm-code {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.btn-done {
+    background-color: #fca034; /* Orange */
+    color: black;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 50px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 180px;
+}

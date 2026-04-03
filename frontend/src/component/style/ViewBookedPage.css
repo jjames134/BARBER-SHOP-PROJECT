@@ -1,3 +1,407 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ====== THEME COLORS ====== */
+:root {
+  --primary: #8B5E3C;        /* น้ำตาลหลัก */
+  --secondary: #D2B48C;      /* น้ำตาลอ่อน */
+  --bg: #FDF8F3;             /* พื้นหลังครีม */
+  --card: #FFFFFF;
+  --text: #3E2C23;
+  --subtext: #7A6A5F;
+  --danger: #C94C4C;
+}
+
+/* ====== GLOBAL ====== */
+.vb-main-container {
+  background: var(--bg);
+  min-height: 100vh;
+  font-family: "Prompt", sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====== LOADER ====== */
+.vb-loader-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  gap: 20px;
+}
+
+.vb-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(139, 94, 60, 0.1);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: vbSpin 0.8s linear infinite;
+}
+
+@keyframes vbSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ====== HEADER ====== */
+.vb-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 15px;
+  background: var(--card);
+  border-bottom: 1px solid #f0e6dc;
+  margin-bottom: 20px;
+}
+
+.vb-back-btn {
+  background: white;
+  border: 1px solid #e0d0c0;
+  padding: 10px;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+  color: var(--text);
+}
+
+.vb-back-btn:hover {
+  background: var(--secondary);
+  transform: translateX(-2px);
+}
+
+.vb-header-title h1 {
+  margin: 0 0 4px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.vb-header-title p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--subtext);
+}
+
+/* ====== CONTENT ====== */
+.vb-content {
+  flex: 1;
+  padding: 0 20px 40px 20px;
+}
+
+/* ====== EMPTY STATE ====== */
+.vb-empty {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.vb-empty-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 40px;
+  margin: 0 auto;
+}
+
+.vb-empty h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.vb-empty p {
+  margin: 0;
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+.vb-btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.vb-btn-primary:hover {
+  background: #6f472c;
+  transform: translateY(-2px);
+}
+
+/* ====== LIST ====== */
+.vb-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ====== CARD ====== */
+.vb-card {
+  background: var(--card);
+  border-radius: 20px;
+  border: 1px solid #f0e6dc;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(139, 94, 60, 0.08);
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.vb-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(139, 94, 60, 0.15);
+}
+
+.vb-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0e6dc;
+  background: #fafaf8;
+}
+
+.vb-chair-tag {
+  background: var(--secondary);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vb-status-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.vb-status-badge.booked {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.vb-status-badge.checkin {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.vb-status-badge.complete {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+/* ====== CARD BODY ====== */
+.vb-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.vb-info-row {
+  display: flex;
+  gap: 12px;
+}
+
+.vb-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.vb-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.vb-info-text label {
+  font-size: 11px;
+  color: var(--subtext);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.vb-info-text strong {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ====== CARD FOOTER ====== */
+.vb-card-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #f0e6dc;
+  background: #fafaf8;
+}
+
+.vb-cancel-btn {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.vb-cancel-btn:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* ====== MODAL ====== */
+.vb-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(62, 44, 35, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.vb-modal {
+  background: var(--card);
+  border: 1px solid #f0e6dc;
+  border-radius: 24px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  animation: vbFadeIn 0.3s ease;
+}
+
+@keyframes vbFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.vb-modal-alert-icon {
+  width: 50px;
+  height: 50px;
+  background: #ffe0b2;
+  color: #e65100;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.vb-modal h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.vb-modal p {
+  margin: 0 0 20px 0;
+  font-size: 13px;
+  color: var(--subtext);
+  line-height: 1.5;
+}
+
+.vb-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.vb-btn-back {
+  background: #f0e6dc;
+  border: none;
+  padding: 11px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.vb-btn-back:hover {
+  background: #e8d8cc;
+}
+
+.vb-btn-confirm-delete {
+  background: var(--danger);
+  border: none;
+  padding: 11px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.vb-btn-confirm-delete:hover {
+  background: #b23434;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .vb-list {
+    grid-template-columns: 1fr;
+  }
+
+  .vb-header {
+    padding: 16px;
+  }
+
+  .vb-card-body {
+    padding: 16px;
+  }
+}

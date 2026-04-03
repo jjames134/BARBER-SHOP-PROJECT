@@ -1,3 +1,131 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.wt-page-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Kanit', sans-serif;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* Header Section */
+.wt-top-bar {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.barber-identity {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.barber-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3b82f6;
+}
+
+.barber-identity h2 { margin: 0; font-size: 1.4rem; color: #1e293b; }
+.barber-identity p { margin: 0; color: #64748b; }
+
+/* Grid System */
+.wt-work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Queue Card */
+.wt-queue-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: 0.2s;
+}
+
+.wt-queue-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time-range { font-weight: 700; font-size: 1.1rem; color: #334155; }
+
+.status-label {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.card-body small { color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+.card-body h3 { margin: 5px 0; color: #1e293b; font-size: 1.2rem; }
+
+/* Buttons */
+.card-footer {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.btn-wt {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn-wt.walkin { background: #22c55e; color: white; }
+.btn-wt.checkin { background: #3b82f6; color: white; }
+.btn-wt.complete { background: #a855f7; color: white; }
+.btn-wt.cancel { background: #fee2e2; color: #ef4444; flex: 0.5; }
+.btn-wt.reset { background: #f1f5f9; color: #64748b; font-size: 0.75rem; }
+
+.btn-wt:hover { opacity: 0.9; }
+.btn-wt:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Holiday / Closed Page */
+.wt-closed-page {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closed-content {
+    text-align: center;
+    background: white;
+    padding: 4rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.closed-icon { font-size: 4rem; margin-bottom: 1rem; }
+.btn-refresh {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.wt-loader-container { text-align: center; padding: 10rem; font-size: 1.2rem; }
+.wt-error { color: #ef4444; }

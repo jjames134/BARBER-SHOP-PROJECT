@@ -1,3 +1,282 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+    --primary-color: #A67C52; /* สีทองแดง/น้ำตาลของแบรนด์ */
+    --bg-color: #F8F5F1; /* สีครีมมินิมอล */
+    --card-bg: #FFFFFF;
+    --text-main: #333333;
+    --text-sub: #666666;
+    --border-color: #E0E0E0;
+    --danger-color: #E74C3C;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.custom-page { /* แก้ชื่อ Class ให้ตรงกับไฟล์ JS เดิมของคุณ */
+    padding: 30px;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    font-family: 'Prompt', sans-serif; /* แนะนำให้ใช้ Font Prompt */
+    color: var(--text-main);
+}
+
+/* Header */
+.cwp-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    position: relative;
+    padding-left: 50px;
+}
+
+.cwp-back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--primary-color);
+    padding: 0;
+    transition: transform 0.2s;
+}
+
+.cwp-back-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.cwp-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.cwp-subtitle {
+    font-size: 16px;
+    color: var(--text-sub);
+    margin: 5px 0 0 0;
+}
+
+/* Section Common */
+.cwp-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+}
+
+.section-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.section-desc {
+    font-size: 14px;
+    color: var(--text-sub);
+    margin: 0;
+}
+
+/* Image Grid System */
+.image-manager-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Image Card Styles */
+.img-card {
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.img-card.has-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.img-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Middle Size for Promo Images */
+.middle-size {
+    height: 220px;
+}
+
+/* Card Overlay and Delete Button */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.img-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.btn-delete-img {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-delete-img:hover {
+    background-color: #c0392b;
+}
+
+/* Upload Placeholder Card */
+.upload-placeholder {
+    border: 2px dashed var(--border-color);
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-sub);
+}
+
+.upload-placeholder:hover {
+    border-color: var(--primary-color);
+    background-color: #f0eae4;
+    color: var(--primary-color);
+}
+
+.upload-icon {
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.upload-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Textarea Section */
+.textarea-container {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.cwp-textarea {
+    width: 100%;
+    height: 250px;
+    padding: 15px;
+    border: none;
+    resize: none;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-main);
+    box-sizing: border-box;
+}
+
+.cwp-textarea:focus {
+    outline: none;
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fafafa;
+    border-top: 1px solid var(--border-color);
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+.cwp-btn-save {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.cwp-btn-save:hover:not(:disabled) {
+    background-color: #8e6843;
+}
+
+.cwp-btn-save:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Loading Overlay */
+.cwp-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .custom-page {
+        padding: 15px;
+    }
+    .cwp-title {
+        font-size: 24px;
+    }
+    .image-manager-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+}

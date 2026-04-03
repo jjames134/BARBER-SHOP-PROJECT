@@ -1,0 +1,102 @@
+.leave-detail-page {
+  min-height: 100vh;
+  background-color: #fffcf7;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.leave-detail-card {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  height: fit-content;
+}
+
+.leave-detail-card h1 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.detail-item {
+  margin-bottom: 25px;
+}
+
+.detail-item label {
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.detail-value {
+  font-size: 18px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.reason-box {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  color: #555;
+  line-height: 1.6;
+  border-left: 4px solid #5d4037;
+}
+
+/* Status Badges in Detail */
+.status-badge-detail {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.status-badge-detail.pending { background: #fff3e0; color: #e67e22; }
+.status-badge-detail.approved { background: #e8f5e9; color: #27ae60; }
+.status-badge-detail.rejected { background: #ffebee; color: #c0392b; }
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.approve-btn, .reject-btn {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.approve-btn { background: #27ae60; color: white; }
+.approve-btn:hover { background: #219150; transform: translateY(-2px); }
+
+.reject-btn { background: #ecf0f1; color: #c0392b; }
+.reject-btn:hover { background: #e0e0e0; color: #a93226; }
+
+.back-button {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  background: white;
+  border: 1px solid #ddd;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+}
