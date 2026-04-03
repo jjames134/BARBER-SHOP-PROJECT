@@ -5,7 +5,7 @@ import "./style/ShopSetting.css";
 
 export default function ShopSetting() {
     const navigate = useNavigate();
-    const { baseURL, shopOpenTime, shopCloseTime, shopStatus } = useContext(DataContext);
+    const { baseURL, shopOpenTime, shopCloseTime, shopStatus, fetchShopData } = useContext(DataContext);
 
     // --- Local States ---
     const [localOpenTime, setLocalOpenTime] = useState("10:00");
@@ -105,16 +105,12 @@ export default function ShopSetting() {
         if (actionRes.ok) {
             alert("บันทึกการตั้งค่าสำเร็จ!");
             
-            // --- ส่วนที่แก้ไข ---
-            setIsDirty(false); // ปลดล็อกเพื่อให้ useEffect กลับมาใช้ค่าจาก Context ได้
+            // ปลดล็อกเพื่อให้ useEffect กลับมาใช้ค่าจาก Context ได้
+            setIsDirty(false);
             setShowPasswordModal(false);
             
-            // เรียกฟังก์ชันดึงข้อมูลใหม่จาก Context (ต้องดึงมาจาก DataContext)
-            if (typeof fetchShopData === "function") {
-                await fetchShopData(); 
-            }
-            // ไม่ต้อง navigate("/") และไม่ต้อง window.location.reload()
-            // ------------------
+            // ดึงข้อมูลใหม่จาก Context
+            await fetchShopData();
 
         } else {
             throw new Error("ระบบบันทึกเวลาแล้ว แต่ไม่สามารถจัดการคิวได้");
